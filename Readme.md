@@ -31,7 +31,7 @@ The **User Registration Service** is a critical microservice in the Shaggy Missi
 ## 🛠️ Tech Stack
 
 - **Runtime**: Node.js with Express.js framework
-- **Database**: PostgreSQL with Sequelize ORM
+- **Database**: MySQL with Sequelize ORM
 - **Security**: bcrypt for password hashing (10 salt rounds)
 - **Documentation**: Swagger UI integration
 - **Service Communication**: Axios for inter-service communication
