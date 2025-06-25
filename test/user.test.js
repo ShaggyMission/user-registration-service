@@ -1,6 +1,5 @@
 
 jest.setTimeout(10000); 
-
 const request = require('supertest');
 const app = require('../app');
 const sequelize = require('../config/database');
