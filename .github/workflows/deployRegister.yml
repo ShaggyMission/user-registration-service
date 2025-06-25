@@ -2,7 +2,7 @@ name: Docker Image
 
 on:
   push:
-    branches: 
+    branches:
       - "main"
 
 jobs:
@@ -13,6 +13,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
 
     - name: Log in to DockerHub
       uses: docker/login-action@v2
@@ -44,14 +55,13 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_SSH_KEY }}
-        port: 22 
-        
+        port: 22
         script: |
-          sudo docker --version || sudo apt install -y docker
+          sudo docker --version || sudo apt install -y docker.io
           sudo service docker start || true
 
           sudo docker pull lissethpacheco/user-registration-service:latest
 
           sudo docker rm -f user-registration-service 2>/dev/null || true
-          
+
           sudo docker run -d --name user-registration-service -p 3010:3010 lissethpacheco/user-registration-service:latest
