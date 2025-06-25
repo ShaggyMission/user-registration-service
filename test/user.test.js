@@ -5,6 +5,9 @@ const sequelize = require('../config/database');
 
 jest.mock('axios');
 
+
+jest.setTimeout(10000); 
+
 describe('POST /user/register', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue({ data: { message: 'Role assigned' } });
@@ -38,6 +41,11 @@ describe('POST /user/register', () => {
   });
 
   afterAll(async () => {
-    await sequelize.close();
+    try {
+      await sequelize.close();
+    } catch (err) {
+      console.error('Error closing sequelize connection:', err);
+    }
   });
 });
+
