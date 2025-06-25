@@ -1,12 +1,8 @@
 const request = require('supertest');
 const app = require('../app');
 const axios = require('axios');
-const sequelize = require('../config/database');
 
 jest.mock('axios');
-
-
-jest.setTimeout(10000); 
 
 describe('POST /user/register', () => {
   beforeEach(() => {
@@ -38,14 +34,6 @@ describe('POST /user/register', () => {
 
     expect(response.statusCode).toBe(400);
     expect(response.body.message).toBe('All fields are required.');
-  });
-
-  afterAll(async () => {
-    try {
-      await sequelize.close();
-    } catch (err) {
-      console.error('Error closing sequelize connection:', err);
-    }
   });
 });
 
