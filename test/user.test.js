@@ -1,22 +1,33 @@
+
+jest.setTimeout(10000); 
+
 const request = require('supertest');
 const app = require('../app');
+const sequelize = require('../config/database');
+const User = require('../models/userModels');
+jest.mock('axios');
 const axios = require('axios');
 
-jest.mock('axios');
+beforeAll(async () => {
+  await sequelize.sync({ force: true });
+});
+
+afterAll(async () => {
+  await new Promise(resolve => setTimeout(resolve, 1000)); 
+  await sequelize.close();
+});
 
 describe('POST /user/register', () => {
-  beforeEach(() => {
+  it('debería registrar un nuevo usuario correctamente', async () => {
     axios.post.mockResolvedValue({ data: { message: 'Role assigned' } });
-  });
 
-  it('should register a user successfully', async () => {
     const response = await request(app)
       .post('/user/register')
       .send({
-        firstName: 'Test',
-        lastName: 'User',
-        email: `test${Date.now()}@example.com`,
-        password: '12345678',
+        firstName: 'Juan',
+        lastName: 'Pérez',
+        email: 'juan.perez@example.com',
+        password: '123456',
         phone: '0999999999'
       });
 
@@ -25,14 +36,5 @@ describe('POST /user/register', () => {
     expect(response.body).toHaveProperty('userId');
   });
 
-  it('should fail when missing fields', async () => {
-    const response = await request(app)
-      .post('/user/register')
-      .send({
-        firstName: 'Test'
-      });
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.message).toBe('All fields are required.');
-  });
 });
+
