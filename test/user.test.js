@@ -41,4 +41,3 @@ describe('POST /user/register', () => {
     await sequelize.close();
   });
 });
-});
