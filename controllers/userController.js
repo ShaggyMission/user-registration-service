@@ -30,7 +30,7 @@ const registerUser = async (req, res) => {
       phone,
     }, { transaction: t });
 
-    const response = await axios.post('http://localhost:3001/roles/assign-role', {
+    const response = await axios.post('http://34.232.173.120:3001/roles/assign-role', {
       userId: newUser.id,
       roleName: 'Contributor'
     });
