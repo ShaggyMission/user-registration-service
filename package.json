@@ -16,7 +16,8 @@
     "jest": "^30.0.3",
     "supertest": "^7.1.1"
   },
-  "scripts": {
-  "test": "jest"
+"scripts": {
+  "test": "jest --detectOpenHandles"
 }
+
 }
