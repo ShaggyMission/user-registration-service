@@ -14,10 +14,10 @@
   },
   "devDependencies": {
     "jest": "^30.0.3",
+    "sqlite3": "^5.1.7",
     "supertest": "^7.1.1"
   },
-"scripts": {
-  "test": "jest --detectOpenHandles"
-}
-
+  "scripts": {
+    "test": "jest --detectOpenHandles"
+  }
 }
